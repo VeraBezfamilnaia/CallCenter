@@ -14,13 +14,16 @@ public class Specialist extends Thread {
     @Override
     public void run() {
         Call call = callBase.takeCall();
-        Thread currThread = Thread.currentThread();
-        String currSubscriber = call.getSubscriber();
-        log.log("Оператор " + currThread + " принял звонок от " + currSubscriber);
-        try {
-            Thread.sleep(CALL_HANDLING_TIME);
-        } catch (InterruptedException ignore) {
+
+        if (call != null) {
+            Thread currThread = Thread.currentThread();
+            String currSubscriber = call.getSubscriber();
+            log.log("Оператор " + currThread + " принял звонок от " + currSubscriber);
+            try {
+                Thread.sleep(CALL_HANDLING_TIME);
+            } catch (InterruptedException ignore) {
+            }
+            log.log("Оператор " + currThread + " завершил звонок c " + currSubscriber);
         }
-        log.log("Оператор " + currThread + " завершил звонок c " + currSubscriber);
     }
 }
